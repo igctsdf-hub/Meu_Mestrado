@@ -1,0 +1,11 @@
+# Arquivos do Jupyter
+.ipynb_checkpoints/
+.virtual_documents/
+
+# Arquivos do Python
+__pycache__/
+*.pyc
+
+# Ambientes virtuais
+venv/
+.env
