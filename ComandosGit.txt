@@ -1,0 +1,7 @@
+cd ~/Documents/Meu_Mestrado
+
+git add .
+
+git commit -m "Arquivos novos"
+
+git push

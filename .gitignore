@@ -1,7 +1,7 @@
 # Arquivos do Jupyter
 .ipynb_checkpoints/
 .virtual_documents/
-.ComandosGit/
+.ComandosGit.txt/
 # Arquivos do Python
 __pycache__/
 *.pyc
