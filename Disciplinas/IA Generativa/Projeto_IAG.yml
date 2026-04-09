@@ -1,0 +1,548 @@
+app:
+  description: Assistente Inteligente Baseado em LLMs para Elaboração de Documento
+    de Planejamento de Contratações Públicas – DFD
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: Projeto_IAG
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.7.20@de0063a630a6d1b2c025fb84f3462ba5151fb60618309cd595c3f4711b1df847
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/huggingface_tei:0.1.4@4618e2c1d7697982f9ecc87b050ea99e0a132aeedc3bc3bbc357f23dbb7479b3
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: 6a303e1e-4584-46fb-ad92-f0f10d3b47db
+    name: mail_to
+    selector:
+    - env
+    - mail_to
+    value: igcts.df@gmail.com;rafael7carvalho@gmail.com
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1775668438327-source-1775669171838-target
+      selected: false
+      source: '1775668438327'
+      sourceHandle: source
+      target: '1775669171838'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: knowledge-retrieval
+      id: 1775669171838-source-1775669246580-target
+      selected: false
+      source: '1775669171838'
+      sourceHandle: source
+      target: '1775669246580'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1775669246580-source-1775670102009-target
+      selected: false
+      source: '1775669246580'
+      sourceHandle: source
+      target: '1775670102009'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1775670102009-source-1775671317355-target
+      selected: false
+      source: '1775670102009'
+      sourceHandle: source
+      target: '1775671317355'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: agent
+      id: 1775671317355-source-1775740524121-target
+      source: '1775671317355'
+      sourceHandle: source
+      target: '1775740524121'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: agent
+        targetType: end
+      id: 1775740524121-source-1775740941567-target
+      source: '1775740524121'
+      sourceHandle: source
+      target: '1775740941567'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: Entrada DOC
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hint: ''
+          label: Modelo de DOD
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: DOD
+      height: 108
+      id: '1775668438327'
+      position:
+        x: 85
+        y: 278
+      positionAbsolute:
+        x: 85
+        y: 278
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_array_file: false
+        selected: false
+        title: Extrator doc
+        type: document-extractor
+        variable_selector:
+        - '1775668438327'
+        - DOD
+      height: 104
+      id: '1775669171838'
+      position:
+        x: 393
+        y: 299
+      positionAbsolute:
+        x: 393
+        y: 299
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - IqJ33QNVZRezxsT0oJ3ibFlRaoOjkua0X4GP1/rjOnf5+68Nr1IIlcHMpiM3b12h
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: AAI/bge-reranker-v2-m3
+            provider: langgenius/huggingface_tei/huggingface_tei
+          top_k: 4
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1775669171838'
+        - text
+        retrieval_mode: multiple
+        selected: false
+        title: Recuperação de Contexto
+        type: knowledge-retrieval
+      height: 89
+      id: '1775669246580'
+      position:
+        x: 695
+        y: 299
+      positionAbsolute:
+        x: 695
+        y: 299
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1775669246580'
+          - result
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.5-flash-lite
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: c6615bd8-1a60-46b8-8f1e-d2e997d4338c
+          role: system
+          text: 'Você é um Auditor Especialista em Planejamento de Contratações Públicas,
+            com foco total no Manual do STM e na Lei 14.133/2021. Sua função é analisar
+            o DFD enviado pelo usuário e compará-lo com o template oficial.
+
+
+
+            Critérios de Análise por Tópico : 1. Objeto (Seção 2): Verifique se a
+            descrição está sucinta e clara. 2. Necessidade e Justificativa (Seção
+            3): Avalie se a motivação está bem fundamentada. 3. Resultados Esperados
+            (Seção 8): Confira se os benefícios da contratação foram quantificados
+            ou qualificados. 4. Alinhamento Estratégico (Seção 10): Valide se o objetivo
+            estratégico está citado.
+
+
+            Formato da Resposta: Para cada tópico, indique:
+
+            Status: (Conforme / Necessita Ajuste)
+
+            Sugestão de Melhoria: (Texto específico para o servidor copiar e colar)."
+
+
+            Toda a análise deve conter no máximo 3000 tokens.'
+        - id: aa1eb8b7-ccb1-4b18-af27-1c0ea40923a9
+          role: user
+          text: 'Por favor, analise o seguinte DFD:
+
+            {{#1775669171838.text#}}
+
+
+            Utilize como base técnica o manual recuperado:
+
+            {{#context#}}'
+        selected: false
+        structured_output_enabled: true
+        title: Auditor de DFD
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1775670102009'
+      position:
+        x: 997
+        y: 299
+      positionAbsolute:
+        x: 997
+        y: 299
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.5-flash-lite
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: d00da352-6e42-4ad5-a78b-b68008c66db3
+          role: system
+          text: 'FORMATO DA RESPOSTA:
+
+            Você deve obrigatoriamente dividir sua resposta em duas partes claras,
+            separadas por uma linha pontilhada:
+
+
+            PARTE 1: MINUTA SUGERIDA (DFD FINAL) Apresente o rascunho completo do
+            DFD, seção por seção, conforme o template oficial (todas as 13 seções)
+            .
+
+
+            PARTE 2: LOG DE ALTERAÇÕES E JUSTIFICATIVAS Apresente uma lista comparativa
+            destacando o que foi melhorado em relação ao texto original do servidor.
+            Utilize o seguinte padrão: * Seção [Número]: O que foi alterado e qual
+            a fundamentação técnica (ex: Manual do STM ou Lei 14.133/21).
+
+
+            Melhoria Identificada: Explique brevemente por que a nova redação é superior
+            (ex: maior clareza, mitigação de risco ou conformidade legal).
+
+            Toda a análise deve conter no máximo 3000 tokens.'
+        - id: a3348fc9-92d3-406b-a69c-dec6ab21fd6c
+          role: user
+          text: 'DADOS PARA TRABALHO:
+
+
+            Com base na análise de conformidade abaixo, reescreva o DFD corrigido.
+
+
+            DFD ORIGINAL:
+
+            {{#1775669171838.text#}}
+
+
+            ANÁLISE DO AUDITOR:
+
+            {{#1775670102009.text#}}
+
+
+            --------------------------
+
+            COMANDO:
+
+            Com base na análise técnica acima, reescreva o DFD do servidor seguindo
+            rigorosamente as 13 seções do template oficial do STM. Garanta que as
+            falhas apontadas sejam corrigidas na nova redação.
+
+            Com base na análise técnica acima, reescreva o DFD do servidor seguindo
+            rigorosamente as 13 seções do template oficial do STM . Após a redação,
+            elabore o Relatório de Alterações comparando o seu texto com o original
+            para que o destinatário entenda as melhorias realizadas.'
+        selected: false
+        title: CONSULTOR DE REDAÇÃO.
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1775671317355'
+      position:
+        x: 1299
+        y: 299
+      positionAbsolute:
+        x: 1299
+        y: 299
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        agent_parameters:
+          instruction:
+            type: constant
+            value: 'Você é um agente que decide e executa o envio de emails formais
+              com base em análises técnicas e de risco.
+
+
+              Você possui acesso à ferramenta:
+
+              - send_email(to, subject, body)
+
+
+              OBJETIVO:
+
+              Chamar automaticamente send_email quando as condições forem atendidas.
+
+
+              REGRAS DE ESCRITA:
+
+
+              Saudação: "Prezado(a) Gestor(a),"  Introdução: Informe que o DFD foi
+              revisado pela assessoria inteligente para garantir conformidade com
+              a Lei 14.133/21 e o Manual do STM .
+
+
+              DESTAQUES DA REVISÃO: Transcreva aqui a PARTE 2 (Log de Alterações)
+              gerada pelo Consultor. Isso deve vir antes do documento para dar clareza
+              ao gestor sobre o que mudou. * DOCUMENTO FINAL: Transcreva a PARTE 1
+              (Minuta Sugerida) completa .
+
+
+              Encerramento: "Atenciosamente, Equipe de Apoio ao Planejamento."
+
+              REGRA DE ENVIO: Utilize a ferramenta send_email para disparar a mensagem.
+
+
+              IMPORTANTE:
+
+              Sempre que as regras indicarem envio, você DEVE chamar a tool send_email.'
+          model:
+            type: constant
+            value:
+              completion_params:
+                temperature: 0.7
+                thinking_mode: false
+                top_p: 0.9
+              mode: chat
+              model: gemini-2.5-flash-lite
+              model_type: llm
+              provider: langgenius/gemini/google
+              type: model-selector
+          query:
+            type: constant
+            value: '--------------------------
+
+              DESTINATARIO:
+
+              {{#env.mail_to#}}
+
+              /
+
+              --------------------------
+
+              Consultor de Redação
+
+
+              {{#1775671317355.text#}}
+
+              '
+          tools:
+            type: constant
+            value:
+            - enabled: true
+              extra:
+                description: "\n    Sends an email using the Gmail API.\n\n    Args:\n\
+                  \        to: The email address of the recipient.\n        subject:\
+                  \ The subject of the email.\n        body: The body content of the\
+                  \ email.\n    "
+              parameters:
+                body:
+                  auto: 1
+                  value: null
+                subject:
+                  auto: 1
+                  value: null
+                to:
+                  auto: 1
+                  value: null
+              provider_name: gmail-mcp
+              provider_show_name: Gmail MPC Server
+              settings: {}
+              tool_description: "\n    Sends an email using the Gmail API.\n\n   \
+                \ Args:\n        to: The email address of the recipient.\n       \
+                \ subject: The subject of the email.\n        body: The body content\
+                \ of the email.\n    "
+              tool_label: send_email
+              tool_name: send_email
+              type: mcp
+        agent_strategy_label: FunctionCalling
+        agent_strategy_name: function_calling
+        agent_strategy_provider_name: langgenius/agent/agent
+        meta:
+          minimum_dify_version: 1.7.0
+          version: 0.0.2
+        output_schema: {}
+        plugin_unique_identifier: langgenius/agent:0.0.34@4b41a374567eb7cb226ee2f851513794566956008f1166c63205efc921be72d8
+        selected: false
+        title: Agente de Email
+        tool_node_version: '2'
+        type: agent
+      height: 187
+      id: '1775740524121'
+      position:
+        x: 1603.9485384345821
+        y: 299
+      positionAbsolute:
+        x: 1603.9485384345821
+        y: 299
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1775671317355'
+          - text
+          value_type: string
+          variable: Nova_redacao
+        - value_selector:
+          - '1775670102009'
+          - text
+          value_type: string
+          variable: Analise_auditor
+        selected: false
+        title: Saída
+        type: end
+      height: 114
+      id: '1775740941567'
+      position:
+        x: 1903
+        y: 299
+      positionAbsolute:
+        x: 1903
+        y: 299
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -639.775680876372
+      y: 143.06119447036141
+      zoom: 0.5433674312630297
+  rag_pipeline_variables: []
